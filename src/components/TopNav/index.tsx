@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const TopNav: React.FC = () => {
+const TopNav: React.FC<{ className?: string }> = (props) => {
   const links = [
     {
       href: "/",
@@ -31,7 +31,7 @@ const TopNav: React.FC = () => {
   ];
 
   return (
-    <div className="top-nav top-nav-flat hide-small">
+    <div className={"top-nav top-nav-flat " + props.className + ""}>
       <div className="nav-inner">
         <nav>
           <ul>

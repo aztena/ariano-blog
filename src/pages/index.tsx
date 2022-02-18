@@ -13,7 +13,7 @@ const Home: NextPage<IHomeProps> = (props) => {
   return (
     <div id="index">
       <div id="container">
-        <TopNav />
+        <TopNav className="hide-small" />
         <div id="flexcontainer-index" className="flexcontainer">
           <div id="text">
             <h1 className="block">
@@ -55,6 +55,8 @@ const Home: NextPage<IHomeProps> = (props) => {
               </Link>
             </p>
           </div>
+
+          <TopNav className="hide-big" />
         </div>
       </div>
     </div>
