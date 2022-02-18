@@ -1,9 +1,15 @@
 import TopNav from "@/components/TopNav";
+import { getSortedPostsData, IPostData, PostsDirectory } from "@/lib/posts";
 import "@/styles/index.sass";
 import type { NextPage } from "next";
 import Link from "next/link";
 
-const Home: NextPage = () => {
+interface IHomeProps {
+  articles: IPostData[];
+  fragments: IPostData[];
+}
+
+const Home: NextPage<IHomeProps> = (props) => {
   return (
     <div id="index">
       <div id="container">
@@ -24,9 +30,20 @@ const Home: NextPage = () => {
               application architecture, bleeding edge tech, and other
               interesting tidbits.
             </p>
+
+            <div id="writing">
+              <div className="divider-short"></div>
+              <PostsList directory="articles" posts={props.articles} />
+              <div className="divider-short"></div>
+              <PostsList directory="fragments" posts={props.fragments} />
+            </div>
           </div>
+
           <div id="photo">
-            <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=75&w=2755" />
+            <img
+              src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=75&w=1500"
+              alt="Ocean clouds seen from space"
+            />
             <p>
               Photo by{" "}
               <Link href="https://unsplash.com/photos/yZygONrUBe8">
@@ -43,5 +60,56 @@ const Home: NextPage = () => {
     </div>
   );
 };
+
+const PostsList = ({
+  posts,
+  directory,
+}: {
+  posts: IPostData[];
+  directory: PostsDirectory;
+}) => {
+  const DirectoryLink = (text: string) => (
+    <Link href={`/${directory}`}>
+      <a>{text}</a>
+    </Link>
+  );
+
+  return (
+    <>
+      <h1 className="block">{DirectoryLink(directory)}</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <p className="title">
+              <Link href={post.relativeUrl}>
+                <a>{post.title}</a>
+              </Link>
+            </p>
+            <p className="hook">
+              {post.excerpt}
+              <br />
+              <span className="date">{post.publishedAt}</span>
+            </p>
+          </li>
+        ))}
+      </ul>
+      <p className="older">
+        <em>Older fragments available {DirectoryLink("here")}.</em>
+      </p>
+    </>
+  );
+};
+
+export async function getStaticProps() {
+  const articles = await getSortedPostsData("articles", 3);
+  const fragments = await getSortedPostsData("fragments", 1);
+
+  return {
+    props: {
+      articles,
+      fragments,
+    },
+  };
+}
 
 export default Home;
