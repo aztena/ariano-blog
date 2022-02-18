@@ -1,3 +1,4 @@
+import TopNav from "@/components/TopNav";
 import "@/styles/index.sass";
 import type { NextPage } from "next";
 import Link from "next/link";
@@ -6,6 +7,7 @@ const Home: NextPage = () => {
   return (
     <div id="index">
       <div id="container">
+        <TopNav />
         <div id="flexcontainer-index" className="flexcontainer">
           <div id="text">
             <h1 className="block">
