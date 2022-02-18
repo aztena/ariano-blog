@@ -1,0 +1,19 @@
+{
+  "name": "ariano-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aztena/ariano-blog.git"
+  },
+  "author": "Arinze Anozie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aztena/ariano-blog/issues"
+  },
+  "homepage": "https://github.com/aztena/ariano-blog#readme"
+}
