@@ -14,6 +14,7 @@ export interface IPostData {
   publishYear: number;
   relativeUrl: string;
   contentHtml?: string;
+  imageUrl?: string;
 }
 
 function pathFor(postsDirectory: PostsDirectory) {
@@ -52,6 +53,15 @@ export async function getGroupedPostsDataByYear(
 ): Promise<{ [Key: string]: IPostData[] }> {
   const postsData = await getAllPostsData(postsDirectory);
   return groupBy(postsData, (data) => data.publishYear);
+}
+
+export async function getAllPostSlugs(postsDirectory: PostsDirectory) {
+  const postsData = await getAllPostsData(postsDirectory);
+  return postsData.map((data) => ({
+    params: {
+      slug: data.slug,
+    },
+  }));
 }
 
 export async function getPostData(

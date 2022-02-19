@@ -7,7 +7,7 @@ import rehypeStringify from "rehype-stringify";
 import rehypePrism from "rehype-prism-plus";
 
 export async function generateHtmlFromMarkdown(content: string) {
-  const html = await unified()
+  const vFile = await unified()
     .use(remarkParse)
     .use(remarkRehype)
     .use(rehypeDocument)
@@ -16,5 +16,5 @@ export async function generateHtmlFromMarkdown(content: string) {
     .use(rehypePrism)
     .process(content);
 
-  return html as unknown as string;
+  return vFile.toString();
 }
