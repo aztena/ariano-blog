@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import orderBy from "lodash.orderby";
+import groupBy from "lodash.groupby";
 import { generateHtmlFromMarkdown } from "./markdown";
 
 export interface IPostData {
@@ -44,6 +45,13 @@ export async function getSortedPostsData(
   const postsData = await getAllPostsData(postsDirectory);
   const sortedData = orderBy(postsData, (data) => data.publishTimeMs, "desc");
   return limit ? sortedData.splice(0, limit) : sortedData;
+}
+
+export async function getGroupedPostsDataByYear(
+  postsDirectory: PostsDirectory
+): Promise<{ [Key: string]: IPostData[] }> {
+  const postsData = await getAllPostsData(postsDirectory);
+  return groupBy(postsData, (data) => data.publishYear);
 }
 
 export async function getPostData(
