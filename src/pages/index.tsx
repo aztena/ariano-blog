@@ -90,7 +90,7 @@ const PostsList = ({
       <h1 className="block">{DirectoryLink(directory)}</h1>
       <ul>
         {posts.map((post) => (
-          <li key={post.id}>
+          <li key={post.slug}>
             <p className="title">
               <Link href={post.relativeUrl}>
                 <a>{post.title}</a>

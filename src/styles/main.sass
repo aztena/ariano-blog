@@ -1,7 +1,7 @@
 @import '_reset.sass' 
 
 $monospace: "IBM Plex Mono", "Lucida Console", "Bitstream Vera Sans Mono", Courier, monospace
-$sans_serif: "Helvetica Neue", helvetica, arial, geneva, sans-serif
+$sans_serif: "Product Sans", "Helvetica Neue", helvetica, arial, geneva, sans-serif
 $serif: "Nanum Myeongjo", "Cormorant Garamond", georgia, serif
 
 $primary: #222
@@ -24,7 +24,7 @@ body
   // from a blog post, but font-smoothing makes text look *much* better (at
   // least on Mac devices).
   text-rendering: optimizeLegibility
-  -webkit-font-smoothing: auto
+  -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 
 .clear

@@ -58,7 +58,7 @@ const Fragments: NextPage<IFragmentsProps> = ({ fragmentsByYear }) => {
                     </a>
                     <ul>
                       {fragmentsByYear[year]?.map((fragment) => (
-                        <li key={fragment.id}>
+                        <li key={fragment.slug}>
                           <Link href={fragment.relativeUrl}>
                             <a>{fragment.title}</a>
                           </Link>

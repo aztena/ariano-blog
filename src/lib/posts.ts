@@ -6,7 +6,7 @@ import groupBy from "lodash.groupby";
 import { generateHtmlFromMarkdown } from "./markdown";
 
 export interface IPostData {
-  id: string;
+  slug: string;
   title: string;
   excerpt: string;
   publishTimeMs: number;
@@ -55,11 +55,11 @@ export async function getGroupedPostsDataByYear(
 }
 
 export async function getPostData(
-  id: string,
+  slug: string,
   postsDirectory: PostsDirectory,
   processMarkdownContent?: boolean
 ): Promise<IPostData> {
-  const fullPath = path.join(pathFor(postsDirectory), `${id}.md`);
+  const fullPath = path.join(pathFor(postsDirectory), `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   const { data, content } = matter(fileContents);
@@ -70,11 +70,11 @@ export async function getPostData(
     : "";
 
   return {
-    id,
+    slug,
     contentHtml,
     title: data.title,
     excerpt: data.excerpt,
-    relativeUrl: `/${postsDirectory}/${id}`,
+    relativeUrl: `/${postsDirectory}/${slug}`,
     publishTimeMs: publishedAt.getTime(),
     publishYear: publishedAt.getFullYear(),
     publishedAt: publishedAt.toLocaleDateString("en-CA", {
