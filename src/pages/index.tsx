@@ -49,6 +49,8 @@ const Home: NextPage<IHomeProps> = (props) => {
               <img
                 src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=75&w=1500"
                 alt="Ocean clouds seen from space"
+                width={1500}
+                height={"auto"}
               />
               <p>
                 Photo by{" "}
@@ -103,7 +105,9 @@ const PostsList = ({
         ))}
       </ul>
       <p className="older">
-        <em>Older fragments available {DirectoryLink("here")}.</em>
+        <em>
+          Older {directory} available {DirectoryLink("here")}.
+        </em>
       </p>
     </>
   );
