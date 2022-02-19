@@ -13,6 +13,21 @@ interface IFragmentPostProps {
 
 const Fragments: NextPage<IFragmentPostProps> = ({ fragment, githubUrl }) => {
   const hasImage = fragment.imageUrl || "" !== "";
+
+  const PublishingInfo = () => (
+    <>
+      <p>
+        <strong>Fragment</strong>
+        <br />
+        {fragment.title}
+      </p>
+      <p>
+        <strong>Published</strong>
+        <br />
+        {fragment.publishedAt}
+      </p>
+    </>
+  );
   return (
     <>
       <Meta
@@ -24,7 +39,11 @@ const Fragments: NextPage<IFragmentPostProps> = ({ fragment, githubUrl }) => {
         id={hasImage ? "flexcontainer-fragments-show-mood" : undefined}
       >
         <div className="flag"></div>
-        <TopNav />
+        <TopNav>
+          <div className="divider"></div>
+          <PublishingInfo />
+          <div className="divider"></div>
+        </TopNav>
         {!hasImage ? <div className="toc-index"></div> : null}
         <div className="fragments">
           <div className="content">
@@ -50,7 +69,9 @@ const Fragments: NextPage<IFragmentPostProps> = ({ fragment, githubUrl }) => {
                 ></div>
                 <div className="divider-short"></div>
                 <div className="info">
-                  <div className="publishing-info-bottom"></div>
+                  <div className="publishing-info-bottom">
+                    <PublishingInfo />
+                  </div>
                   <p>
                     Did I make a mistake? Please consider{" "}
                     <a href={githubUrl}>sending a pull request</a>.

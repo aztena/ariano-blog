@@ -49,6 +49,9 @@ const TopNav: React.FC<{ className?: string; flat?: boolean }> = (props) => {
             ))}
           </ul>
         </nav>
+        {props.children && (
+          <div className="nav-extra-content">{props.children}</div>
+        )}
       </div>
     </div>
   );
