@@ -1,9 +1,11 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import orderBy from "lodash.orderby";
-import groupBy from "lodash.groupby";
-import { generateHtmlFromMarkdown } from "./markdown";
+import fs from 'fs';
+import path from 'path';
+
+import matter from 'gray-matter';
+import groupBy from 'lodash.groupby';
+import orderBy from 'lodash.orderby';
+
+import { generateHtmlFromMarkdown } from './markdown';
 
 export interface IPostData {
   slug: string;
@@ -18,23 +20,50 @@ export interface IPostData {
 }
 
 function pathFor(postsDirectory: PostsDirectory) {
-  return path.join("posts", postsDirectory);
+  return path.join('posts', postsDirectory);
 }
-export type PostsDirectory = "articles" | "fragments";
+export type PostsDirectory = 'articles' | 'fragments';
+
+export async function getPostData(
+  slug: string,
+  postsDirectory: PostsDirectory,
+  processMarkdownContent?: boolean
+): Promise<IPostData> {
+  const fullPath = path.join(pathFor(postsDirectory), `${slug}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+  const { data, content } = matter(fileContents);
+  const publishedAt = new Date(data.date);
+
+  const contentHtml = processMarkdownContent
+    ? await generateHtmlFromMarkdown(content)
+    : '';
+
+  return {
+    slug,
+    contentHtml,
+    title: data.title,
+    excerpt: data.excerpt,
+    relativeUrl: `/${postsDirectory}/${slug}`,
+    publishTimeMs: publishedAt.getTime(),
+    publishYear: publishedAt.getFullYear(),
+    publishedAt: publishedAt.toLocaleDateString('en-CA', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }),
+  };
+}
 
 export async function getAllPostsData(
   postsDirectory: PostsDirectory
 ): Promise<IPostData[]> {
   const fileNames = fs.readdirSync(pathFor(postsDirectory));
-  let posts = [];
-
-  for (const fileName of fileNames) {
-    const post = await getPostData(
-      fileName.replace(/\.md$/, ""),
-      postsDirectory
-    );
-    posts.push(post);
-  }
+  const posts = await Promise.all(
+    fileNames.map((fileName) =>
+      getPostData(fileName.replace(/\.md$/, ''), postsDirectory)
+    )
+  );
 
   return posts;
 }
@@ -44,7 +73,7 @@ export async function getSortedPostsData(
   limit?: number
 ): Promise<IPostData[]> {
   const postsData = await getAllPostsData(postsDirectory);
-  const sortedData = orderBy(postsData, (data) => data.publishTimeMs, "desc");
+  const sortedData = orderBy(postsData, (data) => data.publishTimeMs, 'desc');
   return limit ? sortedData.splice(0, limit) : sortedData;
 }
 
@@ -62,35 +91,4 @@ export async function getAllPostSlugs(postsDirectory: PostsDirectory) {
       slug: data.slug,
     },
   }));
-}
-
-export async function getPostData(
-  slug: string,
-  postsDirectory: PostsDirectory,
-  processMarkdownContent?: boolean
-): Promise<IPostData> {
-  const fullPath = path.join(pathFor(postsDirectory), `${slug}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-
-  const { data, content } = matter(fileContents);
-  const publishedAt = new Date(data.date);
-
-  let contentHtml = processMarkdownContent
-    ? await generateHtmlFromMarkdown(content)
-    : "";
-
-  return {
-    slug,
-    contentHtml,
-    title: data.title,
-    excerpt: data.excerpt,
-    relativeUrl: `/${postsDirectory}/${slug}`,
-    publishTimeMs: publishedAt.getTime(),
-    publishYear: publishedAt.getFullYear(),
-    publishedAt: publishedAt.toLocaleDateString("en-CA", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-  };
 }

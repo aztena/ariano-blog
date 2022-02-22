@@ -1,5 +1,5 @@
-import { NextSeo } from "next-seo";
-import Head from "next/head";
+import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 
 type IMetaProps = {
   title: string;
@@ -26,8 +26,8 @@ const Meta = (props: IMetaProps) => {
           title: props.title,
           description: props.description,
           url: props.canonical,
-          locale: "en",
-          site_name: "Ariano.ca",
+          locale: 'en',
+          site_name: 'Ariano.ca',
         }}
       />
     </>

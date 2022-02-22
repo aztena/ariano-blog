@@ -1,10 +1,11 @@
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeFormat from "rehype-format";
-import rehypeStringify from "rehype-stringify";
-import rehypePrism from "rehype-prism-plus";
-import { figureTransformer } from "./rehype-plugins/figure";
+import rehypeFormat from 'rehype-format';
+import rehypePrism from 'rehype-prism-plus';
+import rehypeStringify from 'rehype-stringify';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import { unified } from 'unified';
+
+import { figureTransformer } from './rehype-plugins/figure';
 
 export async function generateHtmlFromMarkdown(content: string) {
   const vFile = await unified()

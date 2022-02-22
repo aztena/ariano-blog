@@ -1,40 +1,41 @@
-import Link from "next/link";
-import React from "react";
-import classNames from "classnames";
+import React from 'react';
+
+import classNames from 'classnames';
+import Link from 'next/link';
 
 const TopNav: React.FC<{ className?: string; flat?: boolean }> = (props) => {
   const links = [
     {
-      href: "/",
-      title: "Home",
-      text: "△",
+      href: '/',
+      title: 'Home',
+      text: '△',
     },
     {
-      href: "/articles",
-      title: "Longform articles",
-      text: "Articles",
+      href: '/articles',
+      title: 'Longform articles',
+      text: 'Articles',
     },
     {
-      href: "/fragments",
-      title: "Fragments (short articles)",
-      text: "Fragments",
+      href: '/fragments',
+      title: 'Fragments (short articles)',
+      text: 'Fragments',
     },
     {
-      href: "/now",
+      href: '/now',
       title: "What I'm doing now",
-      text: "Now",
+      text: 'Now',
     },
     {
-      href: "/about",
-      title: "About me & this site",
-      text: "About",
+      href: '/about',
+      title: 'About me & this site',
+      text: 'About',
     },
   ];
 
   return (
     <div
-      className={classNames("top-nav", props.className, {
-        "top-nav-flat": props.flat,
+      className={classNames('top-nav', props.className, {
+        'top-nav-flat': props.flat,
       })}
     >
       <div className="nav-inner">

@@ -1,10 +1,11 @@
-import "./fragments.sass";
-import "@/styles/prism.scss";
-import Meta from "@/components/Meta";
-import TopNav from "@/components/TopNav";
-import { getAllPostSlugs, getPostData, IPostData } from "@/lib/posts";
-import { NextPage } from "next";
-import Link from "next/link";
+import './fragments.sass';
+import '@/styles/prism.scss';
+import { NextPage } from 'next';
+import Link from 'next/link';
+
+import Meta from '@/components/Meta';
+import TopNav from '@/components/TopNav';
+import { getAllPostSlugs, getPostData, IPostData } from '@/lib/posts';
 
 interface IFragmentPostProps {
   fragment: IPostData;
@@ -12,7 +13,7 @@ interface IFragmentPostProps {
 }
 
 const Fragments: NextPage<IFragmentPostProps> = ({ fragment, githubUrl }) => {
-  const hasImage = fragment.imageUrl || "" !== "";
+  const hasImage = (fragment.imageUrl || '') !== '';
 
   const PublishingInfo = () => (
     <>
@@ -36,7 +37,7 @@ const Fragments: NextPage<IFragmentPostProps> = ({ fragment, githubUrl }) => {
       />
       <div
         className="flexcontainer"
-        id={hasImage ? "flexcontainer-fragments-show-mood" : undefined}
+        id={hasImage ? 'flexcontainer-fragments-show-mood' : undefined}
       >
         <div className="flag"></div>
         <TopNav>
@@ -47,10 +48,10 @@ const Fragments: NextPage<IFragmentPostProps> = ({ fragment, githubUrl }) => {
         {!hasImage ? <div className="toc-index"></div> : null}
         <div className="fragments">
           <div className="content">
-            {hasImage && <img id="mood" src={fragment.imageUrl} />}
+            {hasImage && <img id="mood" alt="" src={fragment.imageUrl} />}
             <div
               className="content-inner-fragments-show"
-              id={hasImage ? "content-inner-fragments-show-mood" : undefined}
+              id={hasImage ? 'content-inner-fragments-show-mood' : undefined}
             >
               <div className="fragments-content-header">
                 <div className="fragments-content-header-type">
@@ -64,7 +65,7 @@ const Fragments: NextPage<IFragmentPostProps> = ({ fragment, githubUrl }) => {
               <article>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: fragment.contentHtml || "",
+                    __html: fragment.contentHtml || '',
                   }}
                 ></div>
                 <div className="divider-short"></div>
@@ -73,7 +74,7 @@ const Fragments: NextPage<IFragmentPostProps> = ({ fragment, githubUrl }) => {
                     <PublishingInfo />
                   </div>
                   <p>
-                    Did I make a mistake? Please consider{" "}
+                    Did I make a mistake? Please consider{' '}
                     <a href={githubUrl}>sending a pull request</a>.
                   </p>
                 </div>
@@ -87,7 +88,7 @@ const Fragments: NextPage<IFragmentPostProps> = ({ fragment, githubUrl }) => {
 };
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
-  const fragment = await getPostData(params.slug, "fragments", true);
+  const fragment = await getPostData(params.slug, 'fragments', true);
   const githubUrl = `https://github.com/aztena/ariano-blog/edit/main/posts/fragments/${fragment.slug}`;
 
   return {
@@ -99,7 +100,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 }
 
 export async function getStaticPaths() {
-  const paths = await getAllPostSlugs("fragments");
+  const paths = await getAllPostSlugs('fragments');
   return {
     paths,
     fallback: false,

@@ -1,9 +1,11 @@
-import Meta from "@/components/Meta";
-import TopNav from "@/components/TopNav";
-import { getSortedPostsData, IPostData, PostsDirectory } from "@/lib/posts";
-import "@/styles/index.sass";
-import type { NextPage } from "next";
-import Link from "next/link";
+import type { NextPage } from 'next';
+import Link from 'next/link';
+
+import Meta from '@/components/Meta';
+import TopNav from '@/components/TopNav';
+import { getSortedPostsData, IPostData, PostsDirectory } from '@/lib/posts';
+
+import '@/styles/index.sass';
 
 interface IHomeProps {
   articles: IPostData[];
@@ -11,6 +13,47 @@ interface IHomeProps {
 }
 
 const Home: NextPage<IHomeProps> = (props) => {
+  const PostsList = ({
+    posts,
+    directory,
+  }: {
+    posts: IPostData[];
+    directory: PostsDirectory;
+  }) => {
+    const DirectoryLink = (text: string) => (
+      <Link href={`/${directory}`}>
+        <a>{text}</a>
+      </Link>
+    );
+
+    return (
+      <>
+        <h1 className="block">{DirectoryLink(directory)}</h1>
+        <ul>
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <p className="title">
+                <Link href={post.relativeUrl}>
+                  <a>{post.title}</a>
+                </Link>
+              </p>
+              <p className="hook">
+                {post.excerpt}
+                <br />
+                <span className="date">{post.publishedAt}</span>
+              </p>
+            </li>
+          ))}
+        </ul>
+        <p className="older">
+          <em>
+            Older {directory} available {DirectoryLink('here')}.
+          </em>
+        </p>
+      </>
+    );
+  };
+
   return (
     <>
       <Meta
@@ -28,7 +71,7 @@ const Home: NextPage<IHomeProps> = (props) => {
                 </Link>
               </h1>
               <p>
-                I'm Arinze, a cloud solutions architect currently consulting
+                I am Arinze, a cloud solutions architect currently consulting
                 with Bond Brand Loyalty and previously Bank of Montreal.
               </p>
               <p>
@@ -50,14 +93,14 @@ const Home: NextPage<IHomeProps> = (props) => {
                 src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=75&w=1500"
                 alt="Ocean clouds seen from space"
                 width={1500}
-                height={"auto"}
+                height={'auto'}
               />
               <p>
-                Photo by{" "}
+                Photo by{' '}
                 <Link href="https://unsplash.com/photos/yZygONrUBe8">
                   <a>NASA</a>
-                </Link>{" "}
-                on{" "}
+                </Link>{' '}
+                on{' '}
                 <Link href="https://unsplash.com">
                   <a>Unsplash</a>
                 </Link>
@@ -72,50 +115,9 @@ const Home: NextPage<IHomeProps> = (props) => {
   );
 };
 
-const PostsList = ({
-  posts,
-  directory,
-}: {
-  posts: IPostData[];
-  directory: PostsDirectory;
-}) => {
-  const DirectoryLink = (text: string) => (
-    <Link href={`/${directory}`}>
-      <a>{text}</a>
-    </Link>
-  );
-
-  return (
-    <>
-      <h1 className="block">{DirectoryLink(directory)}</h1>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.slug}>
-            <p className="title">
-              <Link href={post.relativeUrl}>
-                <a>{post.title}</a>
-              </Link>
-            </p>
-            <p className="hook">
-              {post.excerpt}
-              <br />
-              <span className="date">{post.publishedAt}</span>
-            </p>
-          </li>
-        ))}
-      </ul>
-      <p className="older">
-        <em>
-          Older {directory} available {DirectoryLink("here")}.
-        </em>
-      </p>
-    </>
-  );
-};
-
 export async function getStaticProps() {
-  const articles = await getSortedPostsData("articles", 3);
-  const fragments = await getSortedPostsData("fragments", 1);
+  const articles = await getSortedPostsData('articles', 3);
+  const fragments = await getSortedPostsData('fragments', 1);
 
   return {
     props: {

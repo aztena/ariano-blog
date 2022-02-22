@@ -1,10 +1,12 @@
-import "./fragments.sass";
-import { NextPage } from "next";
-import TopNav from "@/components/TopNav";
-import { getGroupedPostsDataByYear, IPostData } from "@/lib/posts";
-import Link from "next/link";
-import Meta from "@/components/Meta";
-import React from "react";
+import './fragments.sass';
+import React from 'react';
+
+import { NextPage } from 'next';
+import Link from 'next/link';
+
+import Meta from '@/components/Meta';
+import TopNav from '@/components/TopNav';
+import { getGroupedPostsDataByYear, IPostData } from '@/lib/posts';
 
 interface IFragmentsProps {
   fragmentsByYear: { [Key: string]: IPostData[] };
@@ -78,7 +80,7 @@ const Fragments: NextPage<IFragmentsProps> = ({ fragmentsByYear }) => {
 };
 
 export async function getStaticProps() {
-  const fragmentsByYear = await getGroupedPostsDataByYear("fragments");
+  const fragmentsByYear = await getGroupedPostsDataByYear('fragments');
 
   return {
     props: {

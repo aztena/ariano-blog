@@ -1,6 +1,7 @@
-import { visit } from "unist-util-visit";
-import { h } from "hastscript";
-import type { Root } from "hast";
+/* eslint-disable no-param-reassign */
+import type { Root } from 'hast';
+import { h } from 'hastscript';
+import { visit } from 'unist-util-visit';
 
 interface HtmlImage {
   src: string;
@@ -9,11 +10,25 @@ interface HtmlImage {
   className?: string;
 }
 
+function buildFigure(caption: string, ...imgs: HtmlImage[]) {
+  return h('figure', [
+    ...imgs.map((img) =>
+      h('img', {
+        src: img.src,
+        alt: caption,
+        loading: 'lazy',
+        class: img.className || '',
+      })
+    ),
+    h('figcaption', caption),
+  ]);
+}
+
 export function figureTransformer(tree: Root) {
-  visit(tree, { tagName: "p" }, (node, index) => {
+  visit(tree, { tagName: 'p' }, (node, index) => {
     if (
       node.children.length !== 1 ||
-      node.children[0]?.type !== "text" ||
+      node.children[0]?.type !== 'text' ||
       index === null
     )
       return;
@@ -30,21 +45,21 @@ export function figureTransformer(tree: Root) {
       ?.at(1)!;
 
     const parameters = (textNode.value.match(/("[^"]+)"\s?/gi) as string[]).map(
-      (value) => value.trim().replaceAll('"', "")
+      (value) => value.trim().replaceAll('"', '')
     );
 
     const caption = parameters[0]!;
     switch (figureType) {
-      case "FigureSingle":
+      case 'FigureSingle':
         tree.children[index] = buildFigure(caption, {
-          src: parameters[1] || "",
+          src: parameters[1] || '',
           alt: caption,
         });
         break;
-      case "FigureSingleWithClass":
+      case 'FigureSingleWithClass':
         tree.children[index] = buildFigure(caption, {
-          src: parameters[1] || "",
-          className: parameters[2] || "",
+          src: parameters[1] || '',
+          className: parameters[2] || '',
           alt: caption,
         });
         break;
@@ -53,24 +68,10 @@ export function figureTransformer(tree: Root) {
           caption,
           ...parameters.slice(1).map((src) => ({
             src,
-            className: "",
+            className: '',
             alt: caption,
           }))
         );
     }
   });
-}
-
-function buildFigure(caption: string, ...imgs: HtmlImage[]) {
-  return h("figure", [
-    ...imgs.map((img) =>
-      h("img", {
-        src: img.src,
-        alt: caption,
-        loading: "lazy",
-        class: img.className || "",
-      })
-    ),
-    h("figcaption", caption),
-  ]);
 }
