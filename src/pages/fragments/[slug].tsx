@@ -13,7 +13,7 @@ interface IFragmentPostProps {
 }
 
 const Fragments: NextPage<IFragmentPostProps> = ({ fragment, githubUrl }) => {
-  const hasImage = (fragment.imageUrl || '') !== '';
+  const hasImage = (fragment.imageUrl ?? '') !== '';
 
   const PublishingInfo = () => (
     <>

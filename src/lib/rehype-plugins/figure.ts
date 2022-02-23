@@ -52,14 +52,14 @@ export function figureTransformer(tree: Root) {
     switch (figureType) {
       case 'FigureSingle':
         tree.children[index] = buildFigure(caption, {
-          src: parameters[1] || '',
+          src: parameters[1] ?? '',
           alt: caption,
         });
         break;
       case 'FigureSingleWithClass':
         tree.children[index] = buildFigure(caption, {
-          src: parameters[1] || '',
-          className: parameters[2] || '',
+          src: parameters[1]!,
+          className: parameters[2] ?? '',
           alt: caption,
         });
         break;
