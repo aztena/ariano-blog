@@ -1,5 +1,6 @@
 import rehypeFormat from 'rehype-format';
 import rehypePrism from 'rehype-prism-plus';
+import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -12,6 +13,7 @@ export async function generateHtmlFromMarkdown(content: string) {
     .use(remarkParse)
     .use(remarkRehype)
     .use(rehypeFormat)
+    .use(rehypeSlug)
     .use(() => figureTransformer)
     .use(rehypeStringify)
     .use(rehypePrism)

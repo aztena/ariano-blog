@@ -13,14 +13,10 @@ interface IArticlesProps {
   articlesByYear: { [Key: string]: IPostData[] };
 }
 
-const Fragments: NextPage<IArticlesProps> = ({ years, articlesByYear }) => {
+const Articles: NextPage<IArticlesProps> = ({ years, articlesByYear }) => {
   return (
     <>
-      <Meta
-        title="Articles - ariano.ca"
-        description="Stream of musings that do not merit a more dedicated
-        write-up."
-      />
+      <Meta title="Articles — ariano.ca" description="" />
 
       <div id="container">
         <div className="flexcontainer">
@@ -97,4 +93,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Fragments;
+export default Articles;
