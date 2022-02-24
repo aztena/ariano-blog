@@ -80,16 +80,21 @@ const Article: NextPage<IArticleProps> = ({ article, githubUrl }) => {
                   </div>
                 </div>
               ) : null}
+
               <div className="signature-content">
                 <div className="toc">
                   <h2>Contents</h2>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: article.tocHtml ?? '' }}
+                  ></div>
                   <div className="divider-short"></div>
                 </div>
+
                 <article className="big">
                   <div
                     id="article"
                     dangerouslySetInnerHTML={{
-                      __html: article.contentHtml || '',
+                      __html: article.contentHtml ?? '',
                     }}
                   ></div>
                   <div className="divider-short"></div>

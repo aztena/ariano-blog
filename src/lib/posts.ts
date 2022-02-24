@@ -6,6 +6,7 @@ import groupBy from 'lodash.groupby';
 import orderBy from 'lodash.orderby';
 
 import { generateHtmlFromMarkdown } from './markdown';
+import { generateTableOfContents } from './toc';
 
 export interface IPostData {
   slug: string;
@@ -16,6 +17,7 @@ export interface IPostData {
   publishYear: number;
   relativeUrl: string;
   contentHtml?: string;
+  tocHtml?: string;
   imageUrl?: string;
 }
 
@@ -39,9 +41,12 @@ export async function getPostData(
     ? await generateHtmlFromMarkdown(content)
     : '';
 
+  const tocHtml = generateTableOfContents(contentHtml);
+
   return {
     slug,
     contentHtml,
+    tocHtml,
     title: data.title,
     excerpt: data.excerpt,
     relativeUrl: `/${postsDirectory}/${slug}`,
