@@ -21,6 +21,7 @@
   "dependencies": {
     "classnames": "^2.3.1",
     "gray-matter": "^4.0.3",
+    "hast-util-to-html": "^8.0.3",
     "hastscript": "^7.0.2",
     "lodash.groupby": "^4.6.0",
     "lodash.orderby": "^4.6.0",
