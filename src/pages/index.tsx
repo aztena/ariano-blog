@@ -5,7 +5,7 @@ import Meta from '@/components/Meta';
 import TopNav from '@/components/TopNav';
 import { getSortedPostsData, IPostData, PostsDirectory } from '@/lib/posts';
 
-import '@/styles/index.sass';
+import './index.sass';
 
 interface IHomeProps {
   articles: IPostData[];
