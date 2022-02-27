@@ -24,7 +24,7 @@ export interface IPostData {
 function pathFor(postsDirectory: PostsDirectory) {
   return path.join('posts', postsDirectory);
 }
-export type PostsDirectory = 'articles' | 'fragments';
+export type PostsDirectory = 'articles' | 'fragments' | 'standalone';
 
 export async function getPostData(
   slug: string,
