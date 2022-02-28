@@ -24,7 +24,7 @@ function buildFigure(caption: string, ...imgs: HtmlImage[]) {
   ]);
 }
 
-export function figureTransformer(tree: Root) {
+export function transformFigures(tree: Root) {
   visit(tree, { tagName: 'p' }, (node, index) => {
     if (
       node.children.length !== 1 ||
