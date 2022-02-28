@@ -16,7 +16,12 @@ interface IArticlesProps {
 const Articles: NextPage<IArticlesProps> = ({ years, articlesByYear }) => {
   return (
     <>
-      <Meta title="Articles — ariano.ca" description="" />
+      <Meta
+        title="Articles — ariano.ca"
+        description={
+          'Articles for developers & architects building and managing applications big and small on the cloud.'
+        }
+      />
 
       <div id="container">
         <div className="flexcontainer">
