@@ -6,7 +6,8 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 
-import { figureTransformer } from './rehype-plugins/figure';
+import { transformFigures } from './rehype-transformers/figure';
+import { transformLinksToNoFollow } from './rehype-transformers/nofollow';
 
 export async function generateHtmlFromMarkdown(content: string) {
   const vFile = await unified()
@@ -14,9 +15,10 @@ export async function generateHtmlFromMarkdown(content: string) {
     .use(remarkRehype)
     .use(rehypeFormat)
     .use(rehypeSlug)
-    .use(() => figureTransformer)
     .use(rehypeStringify)
     .use(rehypePrism)
+    .use(() => transformFigures)
+    .use(() => transformLinksToNoFollow)
     .process(content);
 
   return vFile.toString();
