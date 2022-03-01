@@ -7,6 +7,7 @@ import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 
 import { transformFigures } from './rehype-transformers/figure';
+import { transformFootnotes } from './rehype-transformers/footnotes';
 import { transformLinksToNoFollow } from './rehype-transformers/nofollow';
 
 export async function generateHtmlFromMarkdown(content: string) {
@@ -18,6 +19,7 @@ export async function generateHtmlFromMarkdown(content: string) {
     .use(rehypeStringify)
     .use(rehypePrism)
     .use(() => transformFigures)
+    .use(() => transformFootnotes)
     .use(() => transformLinksToNoFollow)
     .process(content);
 
