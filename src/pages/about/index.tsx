@@ -14,7 +14,7 @@ const About: NextPage<IAboutProps> = ({ post }) => {
   return (
     <>
       <Meta
-        title="About — ariano.ca"
+        title="About · ariano.ca"
         description={
           "Arinze is a highly technical cloud solutions architect with a demonstrated record of successful enterprise solution design engagements and execution. He's responsible for end-to-end consulting and technology delivery for complex technical problems."
         }

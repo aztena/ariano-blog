@@ -18,7 +18,7 @@ const Fragments: NextPage<IFragmentsProps> = ({ fragmentsByYear }) => {
   return (
     <>
       <Meta
-        title="Fragments - ariano.ca"
+        title="Fragments · ariano.ca"
         description="Stream of musings that do not merit a more dedicated
         write-up."
       />

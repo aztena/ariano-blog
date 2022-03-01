@@ -57,7 +57,7 @@ const Home: NextPage<IHomeProps> = (props) => {
   return (
     <>
       <Meta
-        title="Home - ariano.ca"
+        title="ariano.ca · Arinze Anozie"
         description="The personal website of Arinze Anozie and tech blog coming to you from Toronto, CA."
       />
       <div id="index">
