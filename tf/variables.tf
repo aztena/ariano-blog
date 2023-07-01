@@ -7,3 +7,8 @@ variable "domain_name" {
     type = string
     default = "ariano.ca"
 }
+
+variable "cloudfront_s3_origin_name" {
+    type = string
+    default = "s3-ariano-blog"
+}
